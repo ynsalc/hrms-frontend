@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faFilter, faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faFilter,
+  faLocationArrow,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Filter.css";
 import JobPositionService from "../../services/JobPositionService";
 import CityService from "../../services/CityService";
@@ -32,23 +36,24 @@ export default function Filter() {
           </div>
           <hr className="mt-0" />
           <h5 className="font-weight-bold primary-color-text">
-           <FontAwesomeIcon icon={faFilter} />İş Türleri
+            <FontAwesomeIcon icon={faFilter} />
+            İş Türleri
           </h5>
           <ul className="checkbox-list">
-              <li>
-                <label>
-                  <input type="checkbox" />
-                  <span className="checkbox"></span>
-                  <span className="text">Tam zamanlı</span>
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" />
-                  <span className="checkbox"></span>
-                  <span className="text">Yarı zamanlı</span>
-                </label>
-              </li>
+            <li>
+              <label>
+                <input type="checkbox" />
+                <span className="checkbox"></span>
+                <span className="text">Tam zamanlı</span>
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" />
+                <span className="checkbox"></span>
+                <span className="text">Yarı zamanlı</span>
+              </label>
+            </li>
           </ul>
           <ul className="filter-form">
             <li>
@@ -64,7 +69,8 @@ export default function Filter() {
           </ul>
           <hr />
           <h5 className="font-weight-bold primary-color-text">
-           <FontAwesomeIcon icon={faLocationArrow} />Konum
+            <FontAwesomeIcon icon={faLocationArrow} />
+            Konum
           </h5>
           <ul className="filter-form">
             <li>
@@ -85,7 +91,8 @@ export default function Filter() {
             </li>
             <li>
               <button type="submit">
-              <FontAwesomeIcon icon={faCheckCircle} />Uygula
+                <FontAwesomeIcon icon={faCheckCircle} />
+                Uygula
               </button>
             </li>
           </ul>

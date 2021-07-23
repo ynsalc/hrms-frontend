@@ -1,25 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { Card, Button, CardTitle, CardText } from "reactstrap";
+import CvService from "../../services/CvService";
+import CvDetail from "../CvDetailLayout/CvDetail";
 
-export default function CvMain({resumes}) {
-    return (
-        <div>
-             <li
-        className="shadow-sm text-justify position-relative"
-        key={resumes.id}
-      >
-        <Link to={`/cvresume/${resumes.id}`}>
-          <span className="detail">
-            <small className="text-muted">
-              <b>{resumes.candidate?.firstName}</b> -{" "}
-              {resumes.candidate?.lastName}{" "}
-            </small>
-          </span>
-        </Link>
-      </li>
-        </div>
-    )
+export default function CvMain() {
+
+  let {id} = useParams();
+
+  const [cv, setCv] = useState([])
+
+  useEffect(() => {
+    let cvService = new CvService();
+    cvService.getByCandidateId(id).then((result) => setCv(result.data.data));
+    
+  }, [])
+
+  return (
+    <div>
+      <CvDetail cvdetail={cv}></CvDetail>
+    </div>
+  );
 }

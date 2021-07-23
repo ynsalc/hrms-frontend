@@ -8,34 +8,31 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 export default function Advert({ advertisement }) {
   return (
     <div>
-      <li
-        className="shadow-sm text-justify position-relative"
-        key={advertisement.id}
-      >
-        <Link to={`/advertisement/${advertisement.id}`}>
-          <span className="avatar">{advertisement.jobPosition?.name[0]}</span>
-          <span className="detail">
-            <small className="text-muted">
-              <b>{advertisement?.employer?.companyName}</b> -{" "}
-              {advertisement?.employer?.webAdress}{" "}
-            </small>
-            <span className="title">{advertisement.jobPosition?.name}</span>
-            <span className="position text-muted">
-              {advertisement?.description}
-            </span>
-          </span>
-        </Link>
-        <div className="card-footer py-1 bg-light">
-          <div className="d-flex primary-color-text flex-wrap justify-content-between">
-            <small>{advertisement?.quota} Kişi</small>
-            <small>1 Gün</small>
-            <small>
-              <FontAwesomeIcon className="mr-1" icon={faMapMarkerAlt} />{" "}
-              {advertisement.city?.name}
-            </small>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+      
+      
+      <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+        <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+          <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+          {advertisement.jobPosition?.name[0]}
+          </div>
+          <div class="job-content">
+          <Link to={`/advertisement/${advertisement.id}`}><h5 class="text-center text-md-left">{advertisement.jobPosition?.name}</h5></Link>
+            <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+              <li class="mr-md-4">
+                <i class="zmdi zmdi-pin mr-2"></i> {advertisement.city?.name}
+              </li>
+              <li class="mr-md-4">
+                <i class="zmdi zmdi-money mr-2"></i> {advertisement.minSalary}{"-"}{advertisement.maxSalary}
+              </li>
+              <li class="mr-md-4">
+                <i class="zmdi zmdi-time mr-2"></i> {advertisement.workType?.workTypeName}{"-"}{advertisement.workTimeType?.workTimeName}
+              </li>
+            </ul>
           </div>
         </div>
-      </li>
+      </div>
+      <hr/>
     </div>
   );
 }

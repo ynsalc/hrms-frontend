@@ -2,6 +2,18 @@
     --border-color: #d8d8d8;
 }
 
+.back-design
+{
+  background-image: url("../../image/hrms.jpg");
+  max-width: 100%;
+}
+
+.back
+{
+  background-color: white;
+  border-radius: 15px;
+}
+
 .explain-bar {
   border: 1px solid var(--border-color);
   border-radius: 8px;

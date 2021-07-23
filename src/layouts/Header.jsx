@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -20,10 +21,10 @@ export default function Header() {
           <Collapse navbar>
             <Nav className="mr-auto ml-3" navbar>
               <NavItem>
-                <NavLink href="/">İş İlanları</NavLink>
+                <NavLink tag={Link} to="/advertList">İş İlanları</NavLink>
               </NavItem>
               <NavItem className="ml-3">
-                <NavLink href="/">İş İlanı Ver</NavLink>
+                <NavLink tag={Link} to="/advert/add">İş İlanı Ver</NavLink>
               </NavItem>
             </Nav>
             <Button className="btn btn-danger btn-md mr-2">Üye Olarak Giriş Yap</Button>

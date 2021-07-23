@@ -11,4 +11,9 @@ export default class CvService
     {
         return axios.get("http://localhost:8080/api/cvmain/getById?id="+id)
     }
+
+    getByCandidateId(id)
+    {
+        return axios.get("http://localhost:8080/api/cvmain/getByCandidateId?candidateId="+id)
+    }
 }
