@@ -1,0 +1,19 @@
+.profile-picture {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.btn-color-theme
+{
+    background-color: #dc3545;
+    border-style: none;
+}
+
+.btn-color-theme:hover
+{
+    background-color: #ffc107;
+    border-style: none;
+    color:#212529;
+}
