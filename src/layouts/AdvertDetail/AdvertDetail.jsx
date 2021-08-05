@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 export default function AdvertDetail() {
   let { id } = useParams();
-  const userId = 4
+  const userId = 1
 
   const [advertisement, setAdvertisement] = useState({});
   let [favorites, setFavorites] = useState([]);

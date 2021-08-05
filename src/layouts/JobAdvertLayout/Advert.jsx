@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import CandidateService from '../../services/CandidateService'
 
 export default function Advert({ advertisement }) {
-  const userId = 4
+  const userId = 1
 
   const [favorities, setFavorities] = useState([])
 
