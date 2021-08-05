@@ -55,7 +55,7 @@ export default function Filter({ clickEvent }) {
 
   function refresh()
   {
-    window.location.assign("http://localhost:3000/advertList")
+    window.location.assign("https://hrms-frontend-seven.vercel.app/advertList")
   }
 
   return (
