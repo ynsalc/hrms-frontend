@@ -8,7 +8,11 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Button
+  Button,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle
 } from "reactstrap";
 
 export default function Header() {
@@ -16,7 +20,7 @@ export default function Header() {
     <div>
       <div className="container">
         <Navbar light expand="md">
-          <NavbarBrand href="/">Human Resources Management System</NavbarBrand>
+          <NavbarBrand tag={Link} to="/">Human Resources Management System</NavbarBrand>
           <NavbarToggler />
           <Collapse navbar>
             <Nav className="mr-auto ml-3" navbar>
@@ -29,7 +33,15 @@ export default function Header() {
             </Nav>
             <Button className="btn btn-danger btn-md mr-2">Üye Olarak Giriş Yap</Button>
             <Button className="btn btn-danger btn-md mr-2">İşveren Olarak Giriş Yap</Button>
-            <Button className="btn btn-warning btn-md">Kayıt Ol</Button>
+            <div class="dropdown">
+              <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Üye Ol
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">İş Arayan</a>
+                <a class="dropdown-item" href="#">İş Veren</a>
+              </div>
+            </div>
           </Collapse>
         </Navbar>
       </div>

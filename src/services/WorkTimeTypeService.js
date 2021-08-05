@@ -4,6 +4,6 @@ export default class WorkTimeType
 {
     getWorkTimeType()
     {
-        return axios.get("http://localhost:8080/api/worktimetypes/getall")
+        return axios.get("https://hrms-backend-heroku.herokuapp.com/api/worktimetypes/getall")
     }
 }

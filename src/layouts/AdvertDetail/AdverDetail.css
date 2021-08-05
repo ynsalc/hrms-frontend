@@ -2,16 +2,16 @@
     --border-color: #d8d8d8;
 }
 
-.back-design
-{
-  background-image: url("../../image/hrms.jpg");
-  max-width: 100%;
-}
 
 .back
 {
   background-color: white;
   border-radius: 15px;
+}
+
+.lll{
+  padding: 15px;
+  background-color: white;
 }
 
 .explain-bar {

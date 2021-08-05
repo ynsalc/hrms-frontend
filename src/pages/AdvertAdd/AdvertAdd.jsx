@@ -8,6 +8,7 @@ import WorkTypeService from "../../services/WorkTypeService";
 import JobTitleService from "../../services/JobTitleService";
 import WorkTimeTypeService from "../../services/WorkTimeTypeService";
 import HrmsCustomField from "../../utils/HrmsCustomField";
+import { toast } from "react-toastify";
 
 export default function AdvertAdd() {
   const [cities, setCities] = useState([]);
@@ -69,7 +70,7 @@ export default function AdvertAdd() {
         initialValues={initialValue}
         onSubmit={(values, { setSubmitting }) => {
           addJobAdvertisement(values);
-          console.log(values);
+          toast.success("İş ilanı başarıyla eklendi..");
           setSubmitting(true);
         }}
       >
@@ -81,7 +82,6 @@ export default function AdvertAdd() {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          /* and other goodies */
         }) => (
           <div className="back shadow-sm p-3 mb-5 bg-white rounded">
             <form onSubmit={handleSubmit}>

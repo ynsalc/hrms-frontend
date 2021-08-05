@@ -1,6 +1,6 @@
 .component--job-item {
     background: #fff;
-    border-radius: 20px;
+    border-radius: 30px;
     max-width: 610px;
     padding: 50px 50px 40px;
     display: flex;
@@ -42,6 +42,7 @@
     background-color: #fff;
     flex-direction: column;
     padding-left: 15px;
+    padding-right: 15px;
     border-radius: 10px;
   }
   .component--job-items li {

@@ -2,21 +2,47 @@ import React, { useState, useEffect } from "react";
 import "./CvDetail.css";
 import CvService from "../../services/CvService";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import UpdateCvMain from "../../pages/updateCv/UpdateCvMain";
+import UpdateCvExperience from "../../pages/updateCv/UpdateCvExperience";
+import UpdateCvEducation from "../../pages/updateCv/UpdateEducation";
+import UpdateLanguage from "../../pages/updateCv/UpdateLanguage";
+import UpdateSkill from "../../pages/updateCv/UpdateSkill";
 
 export default function CvDetail() {
   let { id } = useParams();
+  let cvService = new CvService();
   const [cvDetail, setCvDetail] = useState([]);
 
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+
+  const [modalExperience, setModalExperience] = useState(false);
+  const toggleExperience = () => setModalExperience(!modalExperience);
+
+  const [modalEducation, setModalEducation] = useState(false);
+  const toggleEducation = () => setModalEducation(!modalEducation);
+
+  const [modalLanguage, setModalLanguage] = useState(false);
+  const toggleLanguage = () => setModalLanguage(!modalLanguage);
+
+  const [modalSkill, setModalSkill] = useState(false);
+  const toggleSkill = () => setModalSkill(!modalSkill);
+
   useEffect(() => {
-    let cvService = new CvService();
     cvService
       .getByCandidateId(id)
       .then((result) => setCvDetail(result.data.data));
 
     return () => {};
   }, [id]);
+
+  const updateCvValue = () => {
+    cvService
+      .getByCandidateId(id)
+      .then((result) => setCvDetail(result.data.data));
+  };
   return (
     <div className="container">
       <div className="row gutters-sm">
@@ -30,8 +56,13 @@ export default function CvDetail() {
                   alt=""
                 />
                 <div className="mt-3">
-                  <h4>{cvDetail[0]?.candidate?.firstName}{" "}{cvDetail[0]?.candidate?.lastName}</h4>
-                  <p className="text-secondary mb-1">Full Stack Developer</p>
+                  <h4>
+                    {cvDetail[0]?.candidate?.firstName}{" "}
+                    {cvDetail[0]?.candidate?.lastName}
+                  </h4>
+                  <p className="text-secondary mb-1">
+                    {cvDetail[0]?.coverLetter}
+                  </p>
                 </div>
               </div>
             </div>
@@ -90,7 +121,8 @@ export default function CvDetail() {
                   <h6 className="mb-0">Full Name</h6>
                 </div>
                 <div className="col-sm-9 text-secondary">
-                {cvDetail[0]?.candidate?.firstName}{" "}{cvDetail[0]?.candidate?.lastName}
+                  {cvDetail[0]?.candidate?.firstName}{" "}
+                  {cvDetail[0]?.candidate?.lastName}
                 </div>
               </div>
               <hr />
@@ -99,19 +131,30 @@ export default function CvDetail() {
                   <h6 className="mb-0">Email</h6>
                 </div>
                 <div className="col-sm-9 text-secondary">
-                {cvDetail[0]?.candidate?.email}
+                  {cvDetail[0]?.candidate?.email}
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-sm-12">
-                  <a
-                    className="btn btn-info "
-                    target="__blank"
-                    href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={toggle}
                   >
-                    Düzenle
-                  </a>
+                    Güncelle
+                    <Modal key={"1"} isOpen={modal} toggle={toggle}>
+                      <ModalHeader toggle={toggle}>
+                        Linkedin,Github ve Önyazı Güncelle
+                      </ModalHeader>
+                      <ModalBody>
+                        <UpdateCvMain
+                          resumeId={cvDetail[0]?.id}
+                          updateCvValue={updateCvValue}
+                        />
+                      </ModalBody>
+                    </Modal>
+                  </button>
                 </div>
               </div>
             </div>
@@ -120,41 +163,81 @@ export default function CvDetail() {
             <div className="col-sm-6 mb-3">
               <div class="card h-100">
                 <div class="card-body">
-                  <h6 class="d-flex align-items-center mb-3">Yetenek Bilgileri</h6>
-                  
+                  <div className="row">
+                    <h6 class="d-flex align-items-center mb-3 col-9">
+                      Yetenek Bilgileri
+                    </h6>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm mb-2"
+                      onClick={toggleSkill}
+                    >
+                      {" "}
+                      Güncelle
+                    </button>
+                  </div>
+                  <Modal key={"5"} isOpen={modalSkill} toggle={toggleSkill} className={"modal-dialog modal-xl"}>
+                    <ModalHeader toggle={toggleSkill}>
+                      Yetenek Bilgilerini Güncelle
+                    </ModalHeader>
+                    <ModalBody>
+                      <UpdateSkill
+                        resumeId={cvDetail[0]?.id}
+                        updateCvValue={updateCvValue}
+                      />
+                    </ModalBody>
+                  </Modal>
                   <ListGroup>
-                  {cvDetail[0]?.cvSkill?.map((skill)=>(
-                  <ListGroupItem>{skill.skillName}</ListGroupItem>
-                  ))}
-                </ListGroup>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h6 class="d-flex align-items-center mb-3">Eğitim Bilgileri</h6>
-                  
-                  <ListGroup>
-                  {cvDetail[0]?.cvEducation?.map((education)=>(
-                  <ListGroupItem>{education.school?.schoolName}{"-"}{education.department}</ListGroupItem>
-                  ))}
-                </ListGroup>
-                  
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h6 class="d-flex align-items-center mb-3">İş Deneyimleri Bilgileri</h6>
-                  {cvDetail[0]?.cvExperience?.map((experience)=>(
-                    <ListGroup>
-                    <ListGroupItem>Firma Adı : {experience.companyName}</ListGroupItem>
-                    <ListGroupItem>Pozisyon : {experience.position}</ListGroupItem>
-                    <ListGroupItem>Başlangıç Tarihi : {experience.startYear}</ListGroupItem>
-                    <ListGroupItem>Ayrılış Tarihi : {experience.endYear}</ListGroupItem>
+                    {cvDetail[0]?.cvSkill?.map((skill) => (
+                      <ListGroupItem>{skill.skillName}</ListGroupItem>
+                    ))}
                   </ListGroup>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-6 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div className="row">
+                    <h6 class="d-flex align-items-center mb-3 col-9">
+                      Eğitim Bilgileri
+                    </h6>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm mb-2"
+                      onClick={toggleEducation}
+                    >
+                      {" "}
+                      Güncelle
+                    </button>
+                  </div>
+                  <Modal key={"3"} isOpen={modalEducation} toggle={toggleEducation} className={"modal-dialog modal-xl"}>
+                    <ModalHeader toggle={toggleEducation}>
+                      Eğitim Bilgileri Güncelle
+                    </ModalHeader>
+                    <ModalBody>
+                      <UpdateCvEducation
+                        resumeId={cvDetail[0]?.id}
+                        updateCvValue={updateCvValue}
+                      />
+                    </ModalBody>
+                  </Modal>   
+                  {cvDetail[0]?.cvEducation?.map((education) => (
+                    <ListGroup>
+                      <ListGroupItem>
+                        Okul : {education.school?.schoolName}
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Bölüm : {education.department}
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Başlangıç Tarihi : {education.startYear}
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Bitiş Tarihi : {education.endYear}
+                      </ListGroupItem>
+                      <br />
+                    </ListGroup>
                   ))}
                 </div>
               </div>
@@ -162,12 +245,86 @@ export default function CvDetail() {
             <div className="col-sm-6 mb-3">
               <div class="card h-100">
                 <div class="card-body">
-                  <h6 class="d-flex align-items-center mb-3">Dil Bilgileri</h6>
-                  <ListGroup>
-                  {cvDetail[0]?.cvLanguage?.map((language)=>(
-                  <ListGroupItem>{language.languageName}{" - "}{language.level}</ListGroupItem>
+                  <div className="row">
+                    <h6 class="d-flex align-items-center mb-3 col-9">
+                      İş Deneyimleri Bilgileri
+                    </h6>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm mb-2"
+                      onClick={toggleExperience}
+                    >
+                      {" "}
+                      Güncelle
+                    </button>
+                  </div>
+                  <Modal key={"2"} isOpen={modalExperience} toggle={toggleExperience} className={"modal-dialog modal-xl"}>
+                    <ModalHeader toggle={toggleExperience}>
+                      İş Deneyimi Güncelle
+                    </ModalHeader>
+                    <ModalBody>
+                      <UpdateCvExperience
+                        resumeId={cvDetail[0]?.id}
+                        updateCvValue={updateCvValue}
+                      />
+                    </ModalBody>
+                  </Modal>
+                  {cvDetail[0]?.cvExperience?.map((experience) => (
+                    <ListGroup>
+                      <ListGroupItem>
+                        Firma Adı : {experience.companyName}
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Pozisyon : {experience.position}
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Başlangıç Tarihi : {experience.startYear}
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Ayrılış Tarihi : {experience.endYear}
+                      </ListGroupItem>
+                      <br />
+                    </ListGroup>
                   ))}
-                </ListGroup>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-6 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div className="row">
+                    <h6 class="d-flex align-items-center mb-3 col-9">
+                      Dil Bilgileri
+                    </h6>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm mb-2"
+                      onClick={toggleLanguage}
+                    >
+                      {" "}
+                      Güncelle
+                    </button>
+                  </div>
+                  <Modal key={"4"} isOpen={modalLanguage} toggle={toggleLanguage} className={"modal-dialog modal-xl"}>
+                    <ModalHeader toggle={toggleLanguage}>
+                      Dil Bilgilerini Güncelle
+                    </ModalHeader>
+                    <ModalBody>
+                      <UpdateLanguage
+                        resumeId={cvDetail[0]?.id}
+                        updateCvValue={updateCvValue}
+                      />
+                    </ModalBody>
+                  </Modal>
+                  <ListGroup>
+                    {cvDetail[0]?.cvLanguage?.map((language) => (
+                      <ListGroupItem>
+                        {language.languageName}
+                        {" - "}
+                        {language.level}
+                      </ListGroupItem>
+                    ))}
+                  </ListGroup>
                 </div>
               </div>
             </div>

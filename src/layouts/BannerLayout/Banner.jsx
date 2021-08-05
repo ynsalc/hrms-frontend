@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Banner.css'
+import CityService from '../../services/CityService'
+import WorkTypeService from '../../services/WorkTypeService'
 
 export default function Banner() {
+
+  const [cities, setCities] = useState([])
+  const [workTypes, setWorkTypes] = useState([])
+
+  useEffect(() => {
+    let cityService = new CityService();
+    let workTypeService = new WorkTypeService()
+
+    cityService.getCities().then((result) => setCities(result.data.data))
+    workTypeService.getWorkType().then((result) => setWorkTypes(result.data.data))
+  }, [])
+
     return (
         <div>
             <section className="banner-section">
@@ -21,12 +35,12 @@ export default function Banner() {
                 id="inlineFormCustomSelect"
               >
                 <option>İş Tipi Seçiniz</option>
-                  <option>
-                    Remote
+                {workTypes.map((workType => 
+                  <option key={workType.id} value={workType.id}>
+                    {workType.workTypeName}
                   </option>
-                  <option>
-                    Tam zamanlı
-                  </option>
+                ))}
+                  
               </select>
               </div>
               <div className="col-3">
@@ -35,12 +49,12 @@ export default function Banner() {
                 id="inlineFormCustomSelect"
               >
                 <option>Şehir Seçiniz</option>
-                  <option>
-                    Adana
+                
+                {cities.map((city => 
+                  <option key={city.id} value={city.id}>
+                    {city.name}
                   </option>
-                  <option>
-                    İzmir
-                  </option>
+                ))}
               </select>
               </div>
               <div className="col-1 h-100">

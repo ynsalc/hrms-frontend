@@ -4,6 +4,6 @@ export default class WorkTypeService
 {
     getWorkType()
     {
-        return axios.get("http://localhost:8080/api/worktypes/getall")
+        return axios.get("https://hrms-backend-heroku.herokuapp.com/api/worktypes/getall")
     }
 }
